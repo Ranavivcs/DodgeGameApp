@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/cool_stars"
+    android:layoutDirection="ltr"
+    android:padding="32dp">
+
+    <!-- START GAME (big button) -->
+    <Button
+        android:id="@+id/menu_BTN_start"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Start Game"
+        android:textSize="18sp"
+        android:layout_centerInParent="true"
+        android:backgroundTint="#7B1FA2"
+        android:textColor="@android:color/white" />
+
+    <!-- HIGH SCORES -->
+    <Button
+        android:id="@+id/menu_BTN_highscores"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="High Scores + Map"
+        android:textSize="16sp"
+        android:layout_below="@id/menu_BTN_start"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="#7B1FA2"
+        android:textColor="@android:color/white" />
+
+    <!-- CONTROLS Toggle -->
+    <ToggleButton
+        android:id="@+id/menu_TOGGLE_controls"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textOn="Sensor Mode"
+        android:textOff="Button Mode"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="24dp"
+        android:layout_marginStart="24dp" />
+
+    <!-- SPEED Toggle -->
+    <ToggleButton
+        android:id="@+id/menu_TOGGLE_speed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textOn="Fast Speed"
+        android:textOff="Slow Speed"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="24dp" />
+
+</RelativeLayout>
+
