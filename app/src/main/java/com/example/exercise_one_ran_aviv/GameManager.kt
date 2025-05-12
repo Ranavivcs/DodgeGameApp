@@ -53,9 +53,6 @@ class GameManager(private val rows: Int = 6, private val cols: Int = 5) {
         if (grid[rows - 1][carLane] == 1) {
             grid[rows - 1][carLane] = 0
             lives--
-            if (lives <= 0) {
-                resetGame()
-            }
             return true
 
         }

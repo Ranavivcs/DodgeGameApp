@@ -21,6 +21,9 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import androidx.appcompat.app.AlertDialog
+import android.widget.Button
+import kotlinx.coroutines.Job
 
 
 
@@ -32,7 +35,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
 
 
-
+    private var isGamePaused = false
     private lateinit var main_TXT_score: TextView
     private lateinit var gameManager: GameManager
     private lateinit var cellViews: List<List<AppCompatImageView>>
@@ -44,6 +47,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private var lastMoveTime: Long = 0L
     private var useSensors: Boolean = false
     private var isFastMode: Boolean = false
+    private var gameLoopJob: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,15 +79,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
         }
 
-        lifecycleScope.launch {
-            while (true) {
-                val delayTime = if (isFastMode) 600L else 1500L
-                delay(delayTime)
-                val crashed = gameManager.updateGame()
-                if (crashed) handleCrash2()
-                updateUI()
-            }
-        }
+        startGameLoop()
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
@@ -140,18 +136,33 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     }
 
 
-    private fun handleCrash2()
-    {
-        SignalManager
-            .getInstance()
-            .toast("Crash")
-        SignalManager
-            .getInstance()
-            .vibrate()
+    private fun handleGameOver() {
+        val dialogView = layoutInflater.inflate(R.layout.game_over_dialog, null)
+        val dialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+        gameLoopJob?.cancel()
+        val txtScore = dialogView.findViewById<TextView>(R.id.dialog_TXT_score)
+        val btnRetry = dialogView.findViewById<Button>(R.id.dialog_BTN_retry)
+        val btnMenu = dialogView.findViewById<Button>(R.id.dialog_BTN_mainmenu)
 
+        txtScore.text = "Score: ${gameManager.score}\nDistance: ${gameManager.distance}"
 
+        btnRetry.setOnClickListener {
+            gameManager.resetGame()
+            isGamePaused = false
+            updateUI()
+            startGameLoop()
+            dialog.dismiss()
+        }
 
+        btnMenu.setOnClickListener {
+            dialog.dismiss()
+            finish()
+        }
 
+        dialog.show()
     }
 
 //    private fun handleCrash() //old vibrate
@@ -171,6 +182,16 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 //        }
 //    }
 
+    private fun handleCrash2() {
+        SignalManager
+            .getInstance()
+            .toast("💥 Crash! You lost a life")
+
+        SignalManager
+            .getInstance()
+            .vibrate()
+    }
+
     override fun onResume() {
         super.onResume()
         if (useSensors) {
@@ -179,6 +200,28 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             }
         }
     }
+
+    private fun startGameLoop() {
+        gameLoopJob = lifecycleScope.launch {
+            while (true) {
+                val delayTime = if (isFastMode) 600L else 1500L
+                delay(delayTime)
+                if (!isGamePaused) {
+                    val crashed = gameManager.updateGame()
+                    if (crashed) {
+                        handleCrash2() // <-- Add this line here
+                        if (gameManager.lives <= 0) {
+                            isGamePaused = true
+                            handleGameOver()
+                        }
+                    }
+                    updateUI()
+                }
+            }
+        }
+    }
+
+
 
     override fun onPause() {
         super.onPause()
