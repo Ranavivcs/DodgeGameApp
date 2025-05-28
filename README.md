@@ -11,7 +11,7 @@ A fast-paced Android game where you control a spaceship dodging incoming meteors
 - The game ends when you lose all lives.
 
 
-```
+---
 ## 🎮 Features
 
 - Control Modes:
@@ -29,6 +29,8 @@ A fast-paced Android game where you control a spaceship dodging incoming meteors
   - High score saving (with location and name)
   - View top 10 scores on map
 - Crash sound effects and vibrations on hit
+  
+---
 ```
 ## 📦 Project Structure
 
@@ -51,13 +53,7 @@ com.example.exercise_one_ran_aviv/
 │
 ├── utils/
 │ └── SignalManager.kt
-
-yaml
-Copy
-Edit
-
----
-
+```
 ## 🗺 High Scores with Location
 
 - When a game ends and you earn a high score, you're prompted to enter your name.
