@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/cool_stars"
     android:layoutDirection="ltr"
-    tools:context=".MainActivity">
+    tools:context=".ui.MainActivity">
 
     <TextView
         android:id="@+id/main_TXT_score"
@@ -20,6 +20,19 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"/>
+
+    <ImageButton
+        android:id="@+id/main_BTN_pause"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_alignTop="@id/main_TXT_score"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/pause_button_bg"
+        android:contentDescription="Pause"
+        android:src="@drawable/ic_baseline_pause_24"
+        android:padding="12dp"
+        android:scaleType="fitCenter"
+        app:tint="#5599FF" />
 
     <TextView
         android:id="@+id/main_TXT_distance"

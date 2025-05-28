@@ -2,7 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
 
     <application
         android:allowBackup="true"
@@ -15,12 +22,19 @@
         android:theme="@style/Theme.Exercise_one_ran_aviv"
         tools:targetApi="31">
 
-        <activity
-            android:name=".MainActivity"
-            android:exported="true" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAWsFxNMd4e3FMoktx61WtyhQhArAbW4YE"/>
+
+        <activity android:name=".ui.HighScoresActivity" />
+
+        <activity android:name=".TopScoresActivity" />
 
         <activity
-            android:name=".MenuActivity"
+            android:name=".ui.MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.MenuActivity"
             android:exported="true">
 
             <!-- Launcher now points to MenuActivity -->

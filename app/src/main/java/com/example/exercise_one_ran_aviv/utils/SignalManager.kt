@@ -1,9 +1,8 @@
-package com.example.exercise_one_ran_aviv
+package com.example.exercise_one_ran_aviv.utils
 
 import android.content.Context
 import android.content.Context.VIBRATOR_MANAGER_SERVICE
 import android.content.Context.VIBRATOR_SERVICE
-import android.os.Binder
 import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
@@ -12,23 +11,25 @@ import android.widget.Toast
 import java.lang.ref.WeakReference
 
 class SignalManager private constructor(context: Context) {
-    private val contextRef = WeakReference(context)
+    private var contextRef = WeakReference(context)
 
     companion object {
-        @Volatile
         private var instance: SignalManager? = null
 
         fun init(context: Context): SignalManager {
-            return SignalManager.instance ?: synchronized(this) {
-                SignalManager.instance
-                    ?: SignalManager(context).also { this.instance = it }
+            if (instance == null) {
+                instance = SignalManager(context)
+            } else {
+
+                instance!!.contextRef.clear()
+                instance!!.contextRef = WeakReference(context)
             }
+            return instance!!
         }
 
         fun getInstance(): SignalManager {
-            return instance ?: throw IllegalStateException(
-                "SignalManager must be initialized by calling init(context) before use."
-            )
+            return instance
+                ?: throw IllegalStateException("SignalManager is not initialized, call init(context) first")
         }
     }
 

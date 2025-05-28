@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/spacey_panel"
+    android:gravity="center">
+
+    <Button
+        android:id="@+id/pause_BTN_retry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Retry" />
+
+    <Button
+        android:id="@+id/pause_BTN_exit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Exit to Main Menu"
+        android:layout_marginTop="12dp" />
+    <Button
+        android:id="@+id/pause_BTN_continue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Continue"
+        android:backgroundTint="@color/darkBlue"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="12dp" />
+
+</LinearLayout>

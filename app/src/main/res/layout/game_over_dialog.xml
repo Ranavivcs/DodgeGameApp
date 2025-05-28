@@ -37,10 +37,21 @@
         android:layout_marginBottom="12dp" />
 
     <Button
+        android:id="@+id/dialog_BTN_viewscores"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View Top Scores"
+        android:backgroundTint="@color/darkBlue"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="12dp" />
+
+    <Button
         android:id="@+id/dialog_BTN_mainmenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Main Menu"
         android:backgroundTint="@color/darkBlue"
         android:textColor="@android:color/white" />
+
+
 </LinearLayout>
